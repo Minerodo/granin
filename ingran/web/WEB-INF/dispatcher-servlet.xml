@@ -19,7 +19,49 @@
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="index.htm">indexController</prop>
+                <prop key="cargador_catorcenal.htm">CargadorController</prop>
+                <prop key="cargador_semanal.htm">CargadorController</prop>
+                
+                <prop key="crear_catorcena.htm">CatorcenaController</prop>
+                <prop key="editar_catorcena.htm">CatorcenaController</prop>
+                <prop key="listar_catorcenas.htm">CatorcenaController</prop>
+                <prop key="activar_catorcena.htm">CatorcenaController</prop>
+                <prop key="desactivar_catorcena.htm">CatorcenaController</prop>
+                
+                <prop key="crear_laudo_ccosto.htm">LaudoCCostoController</prop>
+                
+                <prop key="crear_laudo.htm">LaudoController</prop>
+                <prop key="editar_laudo.htm">LaudoController</prop>
+                
+                <prop key="index.htm">NavController</prop>
+                <prop key="inicio.htm">NavController</prop>
+                <prop key="salir.htm">NavController</prop>
+                <prop key="error.htm">NavController</prop>
+                <prop key="editar_usuario_credenciales.htm">NavController</prop>
+                
+                <prop key="crear_planilla_hora.htm">PlanillaHoraController</prop>
+                <prop key="listar_catorcena_cargada.htm">PlanillaHoraController</prop>
+                <prop key="editar_planilla_hora.htm">PlanillaHoraController</prop>
+                <prop key="enviar_catorcena.htm">PlanillaHoraController</prop>
+                
+                <prop key="reporte_horas_por_persona.htm">PlanillaHoraReportesController</prop>
+                <prop key="reporte_actividad_por_persona.htm">PlanillaHoraReportesController</prop>
+                <prop key="reporte_persona_por_actividad.htm">PlanillaHoraReportesController</prop>
+                <prop key="reporte_consolidado_tiempo_efectivo.htm">PlanillaHoraReportesController</prop>
+                <prop key="reporte_consolidado_tiempo_pagado.htm">PlanillaHoraReportesController</prop>
+                
+                <prop key="crear_proyecto_horario.htm">ProyectoController</prop>
+                <prop key="listar_proyecto_horario.htm">ProyectoController</prop>
+                <prop key="editar_proyecto_horario.htm">ProyectoController</prop>
+                
+                <prop key="crear_usuario.htm">UsuarioController</prop>
+                <prop key="editar_usuario.htm">UsuarioController</prop>
+                <prop key="listar_usuarios.htm">UsuarioController</prop>
+                <prop key="activar_usuario.htm">UsuarioController</prop>
+                <prop key="desactivar_usuario.htm">UsuarioController</prop>
+                <prop key="eliminar_usuario.htm">UsuarioController</prop>
+                <prop key="asignar_proyecto_usuario.htm">UsuarioController</prop>
+                <prop key="desasignar_proyecto.htm">UsuarioController</prop>
             </props>
         </property>
     </bean>
@@ -32,6 +74,25 @@
     <!--
     The index controller.
     -->
+    <bean name="CargadorController"
+          class="com.ingran.controller.CargadorController"/>
+    <bean name="CatorcenaController"
+          class="com.ingran.controller.CatorcenaController"/>
+    <bean name="LaudoCCostoController"
+          class="com.ingran.controller.LaudoCCostoController"/>
+    <bean name="LaudoController"
+          class="com.ingran.controller.LaudoController"/>
+    <bean name="NavController"
+          class="com.ingran.controller.NavController" />
+    <bean name="PlanillaHoraController"
+          class="com.ingran.controller.PlanillaHoraController" />
+    <bean name="PlanillaHoraReportesController"
+          class="com.ingran.controller.PlanillaHoraReportesController" />
+    <bean name="ProyectoController"
+          class="com.ingran.controller.ProyectoController" />
+    <bean name="UsuarioController"
+          class="com.ingran.controller.UsuarioController" />
+    
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />

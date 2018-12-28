@@ -1,7 +1,6 @@
 package com.ingran.controller;
 
 import com.ingran.data.CentroDeCostoDB;
-import com.ingran.data.ProyectoDB;
 import com.ingran.data.ProyectoHorarioDB;
 import com.ingran.model.ProyectoHorario;
 import javax.servlet.http.HttpServletRequest;
