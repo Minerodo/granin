@@ -104,7 +104,7 @@ public class LaudoController {
 
             Laudo laudo = new Laudo();
             laudo.setId(Integer.parseInt(request.getParameter("id")));
-            laudo = LaudoDB.obtenerLaudo(laudo);
+            //laudo = LaudoDB.obtenerLaudo(laudo);
             model.addAttribute("laudo", laudo);
 
             Unidad_MedidaDB unidades = new Unidad_MedidaDB();

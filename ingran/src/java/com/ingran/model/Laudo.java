@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ingran.model;
 
-/**
- *
- * @author admin
- */
+import java.util.List;
+
 public class Laudo {
+
     private Integer id;
     private String descripcion;
-    private double  costo = 0.00d;
+    private Double costo;
     private Unidad_Medida unidad_medida;
     private String estado;
+    private List<LaudoCCosto> laudo_especifico;
 
     public Unidad_Medida getUnidad_medida() {
         return unidad_medida;
@@ -24,8 +19,6 @@ public class Laudo {
         this.unidad_medida = unidad_medida;
     }
 
-    
-    
     public Integer getId() {
         return id;
     }
@@ -42,11 +35,11 @@ public class Laudo {
         this.descripcion = descripcion;
     }
 
-    public double getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 
@@ -57,16 +50,16 @@ public class Laudo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
-    
-//    public String toString(){
-//        return getNombre();
-//    }
-//    
+
     public String getNombre() {
         return descripcion;
     }
-    
-    
+
+    public List<LaudoCCosto> getLaudo_especifico() {
+        return laudo_especifico;
+    }
+
+    public void setLaudo_especifico(List<LaudoCCosto> laudo_especifico) {
+        this.laudo_especifico = laudo_especifico;
+    }
 }

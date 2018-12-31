@@ -8,36 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+public class LaudoDB extends Conexion {
 
-
-/**
- *
- * @author admin
- */
-public class LaudoDB  extends Conexion {
     private List<Laudo> laudos = new ArrayList<>();
 
     public List<Laudo> getLaudos() {
         return laudos;
     }
-    
-    
-    
+
     public void setLaudos(List<Laudo> laudos) {
         this.laudos = laudos;
     }
-    
-    
 
     public void obtenerLaudos() {
         abrirConexion();
-        
-        
 
         getLaudos().clear();
 
@@ -53,7 +37,7 @@ public class LaudoDB  extends Conexion {
 
             while (rs.next()) {
                 Laudo laudo = new Laudo();
-                
+
                 laudo.setId(rs.getInt(1));
                 laudo.setDescripcion(rs.getString(2));
                 laudo.setCosto(rs.getDouble(3));
@@ -82,43 +66,35 @@ public class LaudoDB  extends Conexion {
             }
         }
     }
-    
-    
-    
-    public static Laudo obtenerLaudo(Laudo lau) {
 
-        
+    public static void obtenerLaudo(Laudo laudo) {
+
         Conexion conexion = new Conexion();
         conexion.abrirConexion();
-        Laudo laudo = null;
-        
 
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        try {  //SELECT l.ID, l.DESCRIPCION, l.COSTO, u.NOMBRE, l.ESTADO FROM dbo.LAUDO l, dbo.UNIDAD_MEDIDA u WHERE l.TIPO_UNIDAD = u.id;
+        try {
             String consultaSQL = "SELECT l.ID, l.DESCRIPCION, l.COSTO,  u.NOMBRE, l.TIPO_UNIDAD, l.ESTADO FROM dbo.LAUDO l, dbo.UNIDAD_MEDIDA u WHERE l.TIPO_UNIDAD = u.id AND l.ID = ?;";
 
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
-            pst.setInt(1, lau.getId());
-           
+            pst.setInt(1, laudo.getId());
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                laudo = new Laudo();
-                
                 laudo.setId(rs.getInt(1));
                 laudo.setDescripcion(rs.getString(2));
                 laudo.setCosto(rs.getDouble(3));
-                Unidad_Medida unidad_medida = new Unidad_Medida();
-                unidad_medida.setNombre(rs.getString(4));
-                unidad_medida.setId(rs.getInt(5));
-                laudo.setUnidad_medida(unidad_medida);
-                laudo.setEstado(rs.getString(6));
-
                 
+                Unidad_Medida udm = new Unidad_Medida();
+                udm.setNombre(rs.getString(4));
+                udm.setId(rs.getInt(5));
+                laudo.setUnidad_medida(udm);
+                
+                laudo.setEstado(rs.getString(6));
             }
         } catch (SQLException e) {
             System.err.println("ERROR: " + e);
@@ -137,41 +113,27 @@ public class LaudoDB  extends Conexion {
                 System.err.println("ERROR: " + e);
             }
         }
-        
-        return laudo;
     }
-    
-    
-    
-    
+
     public static void main(String[] args) {
-         Laudo laudo = new Laudo();
-         laudo.setCosto(2.2);
-         laudo.setDescripcion("prueba");
-         
-         Unidad_Medida unidad_medida = new Unidad_Medida();
-         
-         unidad_medida.setId(12);
-         
-         laudo.setUnidad_medida(unidad_medida);
-         laudo.setEstado("A");
-         
-         agregarLaudo(laudo);
+        Laudo laudo = new Laudo();
+        laudo.setCosto(2.2);
+        laudo.setDescripcion("prueba");
+
+        Unidad_Medida unidad_medida = new Unidad_Medida();
+
+        unidad_medida.setId(12);
+
+        laudo.setUnidad_medida(unidad_medida);
+        laudo.setEstado("A");
+
+        agregarLaudo(laudo);
     }
-    
-    
-    public Double getMontoLaudo(Integer idLaudo)
-    {
+
+    public Double getMontoLaudo(Integer idLaudo) {
         Double costo = 0.0d;
-        
-        
-        
-        
+
         abrirConexion();
-        
-        
-
-
 
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -179,17 +141,15 @@ public class LaudoDB  extends Conexion {
         try {
             String consultaSQL = "SELECT l.COSTO FROM dbo.LAUDO l WHERE l.id = ?;";
 
-            
-            
             pst = getConexion().prepareStatement(consultaSQL);
-            
+
             pst.setInt(1, idLaudo);
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 costo = rs.getDouble(1);
-                
+
             }
         } catch (SQLException e) {
             System.err.println("ERROR: " + e);
@@ -208,14 +168,11 @@ public class LaudoDB  extends Conexion {
                 System.err.println("ERROR: " + e);
             }
         }
-        
-        
-        
+
         return costo;
     }
-    
+
     public static Boolean agregarLaudo(Laudo laudo) {
-        
 
         Boolean creado = true;
         Conexion conexion = new Conexion();
@@ -224,7 +181,7 @@ public class LaudoDB  extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-             String consultaSQL = "INSERT INTO LAUDO(descripcion, costo, tipo_unidad, estado) VALUES( ?, ?, ?, ?);";
+            String consultaSQL = "INSERT INTO LAUDO(descripcion, costo, tipo_unidad, estado) VALUES( ?, ?, ?, ?);";
 
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
@@ -232,10 +189,9 @@ public class LaudoDB  extends Conexion {
             pst.setDouble(2, laudo.getCosto());
             pst.setInt(3, laudo.getUnidad_medida().getId());
             pst.setString(4, laudo.getEstado());
-            
+
             String test = String.valueOf(laudo.getUnidad_medida().getId());
             test = String.valueOf(laudo.getEstado());
-
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -259,12 +215,8 @@ public class LaudoDB  extends Conexion {
         }
         return creado;
     }
-    
-    
-    
 
     public static Boolean editarLaudo(Laudo laudo) {
-        
 
         Boolean creado = true;
         Conexion conexion = new Conexion();
@@ -273,7 +225,7 @@ public class LaudoDB  extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-             String consultaSQL = "update LAUDO set descripcion = ?, costo = ?, tipo_unidad = ?, estado = ? WHERE id = ?;";
+            String consultaSQL = "update LAUDO set descripcion = ?, costo = ?, tipo_unidad = ?, estado = ? WHERE id = ?;";
 
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
@@ -281,10 +233,9 @@ public class LaudoDB  extends Conexion {
             pst.setDouble(2, laudo.getCosto());
             pst.setInt(3, laudo.getUnidad_medida().getId());
             pst.setString(4, laudo.getEstado());
-            
+
             String test = String.valueOf(laudo.getUnidad_medida().getId());
             test = String.valueOf(laudo.getEstado());
-
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -308,6 +259,5 @@ public class LaudoDB  extends Conexion {
         }
         return creado;
     }
-    
-    
+
 }
