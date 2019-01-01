@@ -14,7 +14,7 @@
 <spring:url value="/crear_laudo_ccosto.htm" var="urlCrearLaudoPersonal" />
 
 <div class="col-xs-4 col-md-4 col-lg-4">
-    <h3 align="center"><p class="text-muted">REGISTRAR CATORCENA</p></h3>
+    <h3 align="center"><p class="text-muted">REGISTRAR LAUDO</p></h3>
     <c:if test="${not empty msg}">
         <div class="alert alert-${css} alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -33,12 +33,12 @@
         -->
         <div class="form-group">
             <form:label path="descripcion">Descripción:</form:label> 
-            <form:input path="descripcion" class="form-control" placeholder="DESCRIPCION" required="required"/>
+            <form:input path="descripcion" class="form-control" placeholder="Descripcion" required="required"/>
             <form:errors path="descripcion"/>
         </div>
         <div class="form-group">
             <form:label path="costo">Valor:</form:label> 
-            <form:input path="costo" class="form-control" placeholder="COSTO" required="required"/>
+            <form:input path="costo" class="form-control" placeholder="Costo" required="required"/>
             <form:errors path="costo"/>
         </div>
         <div class="form-group">
