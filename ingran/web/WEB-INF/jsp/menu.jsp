@@ -35,6 +35,8 @@
     <spring:url value="/crear_laudo.htm" var="urlCrearLaudo" />
     <spring:url value="/listar_laudo.htm" var="urlListarLaudo" />
 
+    <spring:url value="/crear_orden_de_trabajo.htm" var="urlCrearODT" />
+    
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -56,10 +58,12 @@
                     <li><a href="${urlCatorcenaHorasPorPersona}"> - Horas por Persona</a></li>
                     <li><a href="${urlCatorcenaActividadPorPersona}"> - Actividades por Persona</a></li>
                     <li><a href="${urlCatorcenaPersonasEnCadaActividad}"> - Personas en Cada Actividad</a></li>
+                    <li class="divider"></li>
                     <li class="dropdown-header">Consolidado</li>
                     <li><a href="${urlConsolidadoTiempoEfectivo}"> - Tiempo Efectivo</a></li>
                     <li><a href="${urlConsolidadoTiempoPagado}"> - Tiempo Pagado</a></li>
-                    <li class="dropdown-header">Cargador</li>
+                    <li class="divider"></li>
+                     <li class="dropdown-header">Cargador</li>
                     <li><a href="${urlCargadorCatorcenal}"> - Catorcenal</a></li>
                     <li><a href="${urlCargadorSemanal}"> - Semanal</a></li>
                 </ul>
@@ -70,7 +74,6 @@
                 <ul class="dropdown-menu forAnimate" role="menu">
                     <li class="dropdown-header">Horarios</li>
                     <li><a href="${urlCrearProyecto}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-                    <li class="divider"></li>
                     <li><a href="${urlListarProyectos}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
                 </ul>
             </li>
@@ -79,7 +82,6 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                 <ul class="dropdown-menu forAnimate" role="menu">
                     <li><a href="${urlCrearUsuario}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-                    <li class="divider"></li>
                     <li><a href="${urlListarUsuarios}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
                 </ul>
             </li>
@@ -88,17 +90,19 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catorcenas<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a>
                 <ul class="dropdown-menu forAnimate" role="menu">
                     <li><a href="${urlCrearCatorcena}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-                    <li class="divider"></li>
                     <li><a href="${urlListarCatorcenas}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><!-- Laudo -->
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Laudo<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a>
+            <li class="dropdown"><!-- Obra -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Obra<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a>
                 <ul class="dropdown-menu forAnimate" role="menu">
+                    <li class="dropdown-header">Laudo</li>
                     <li><a href="${urlCrearLaudo}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-                    <li class="divider"></li>
                     <li><a href="${urlListarLaudo}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Orden de Trabajo</li>
+                    <li><a href="${urlCrearODT}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
                 </ul>
             </li>
 

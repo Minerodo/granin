@@ -39,6 +39,8 @@
                 <prop key="error.htm">NavController</prop>
                 <prop key="editar_usuario_credenciales.htm">NavController</prop>
                 
+                <prop key="crear_orden_de_trabajo.htm">OrdenDeTrabajoController</prop>
+                
                 <prop key="crear_planilla_hora.htm">PlanillaHoraController</prop>
                 <prop key="listar_catorcena_cargada.htm">PlanillaHoraController</prop>
                 <prop key="editar_planilla_hora.htm">PlanillaHoraController</prop>
@@ -84,6 +86,8 @@
           class="com.ingran.controller.LaudoController"/>
     <bean name="NavController"
           class="com.ingran.controller.NavController" />
+    <bean name="OrdenDeTrabajoController"
+          class="com.ingran.controller.OrdenDeTrabajoController"/>
     <bean name="PlanillaHoraController"
           class="com.ingran.controller.PlanillaHoraController" />
     <bean name="PlanillaHoraReportesController"
