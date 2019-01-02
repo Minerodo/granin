@@ -3,6 +3,7 @@ package com.ingran.data;
 import com.ingran.model.CentroDeCosto;
 import com.ingran.model.Cliente;
 import com.ingran.model.OrdenDeTrabajo;
+import com.ingran.util.Fecha;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,5 +115,18 @@ public class OrdenDeTrabajoDB extends Conexion {
                 System.err.println("ERROR: " + e);
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        OrdenDeTrabajo odt = new OrdenDeTrabajo();
+        CentroDeCosto cdc = new CentroDeCosto();
+        cdc.setCentro_de_costo("123.456");
+        odt.setProyecto(cdc);
+        Cliente cliente = new Cliente();
+        cliente.setCliente("123-4");
+        odt.setPropietario(cliente);
+        odt.setTitulo("prueba desde consola");
+        odt.setFecha(Fecha.convertitTextoADate("01-01-2019"));
+        OrdenDeTrabajoDB.crearOrdenDeTrabajo(odt);
     }
 }

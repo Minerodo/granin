@@ -20,13 +20,23 @@
     </c:if>
     <form:form name="frrc" id="frrc" method="POST" action="" commandName="odt">
         <div class="form-group">
+            <form:label path="proyecto.centro_de_costo">Centro de Costo:</form:label>
+            <form:input path="proyecto.centro_de_costo" onfocusout="seleccionarProyecto();" class="form-control" placeholder="Centro de Costo" list="listProyectos" type="text" required="true"/>
+            <form:errors path="proyecto.centro_de_costo"/>
+        </div>
+        <div class="form-group">
             <form:label path="proyecto.descripcion">Proyecto:</form:label>
-            <form:input path="proyecto.descripcion" class="form-control" placeholder="Proyecto" list="listProyectos" type="text" required="true"/>
+            <form:input path="proyecto.descripcion" class="form-control" placeholder="Proyecto" type="text" required="true" readonly="true"/>
             <form:errors path="proyecto.descripcion"/>
         </div>
         <div class="form-group">
+            <form:label path="propietario.cliente">Cliente</form:label>
+            <form:input path="propietario.cliente" onfocusout="seleccionarCliente();" class="form-control" placeholder="Cliente" list="listPropietarios" type="text" required="true"/>
+            <form:errors path="propietario.cliente"/>
+        </div>
+        <div class="form-group">
             <form:label path="propietario.nombre">Propietario:</form:label>
-            <form:input path="propietario.nombre" class="form-control" placeholder="Propietario" list="listPropietarios" type="text" required="true"/>
+            <form:input path="propietario.nombre" class="form-control" placeholder="Propietario" type="text" required="true" readonly="true"/>
             <form:errors path="propietario.nombre"/>
         </div>
         <div class="form-group">
@@ -45,14 +55,28 @@
 
 <datalist id="listProyectos">
     <c:forEach var="proyecto" items="${proyectos}">
-        <option value="${proyecto.descripcion}" label="${proyecto.centro_de_costo}" data-ejemplo="${proyecto.centro_de_costo}"/>
+        <option value="${proyecto.centro_de_costo}" label="${proyecto.descripcion}" data-ejemplo="${proyecto.descripcion}"/>
     </c:forEach>
 </datalist>
 
 <datalist id="listPropietarios">
     <c:forEach var="propietario" items="${propietarios}">
-        <option value="${propietario.nombre}" label="${propietario.cliente}" data-ejemplo="${propietario.cliente}"/>
+        <option value="${propietario.cliente}" label="${propietario.nombre}" data-ejemplo="${propietario.nombre}"/>
     </c:forEach>
 </datalist>
+
+<script>
+    function seleccionarProyecto() {
+        var dato = document.getElementById('proyecto.centro_de_costo').value;
+        var value = $('#listProyectos [value="' + dato + '"]').data('ejemplo');
+        document.getElementById('proyecto.descripcion').value = value;
+    }
+    
+    function seleccionarCliente() {
+        var dato = document.getElementById('propietario.cliente').value;
+        var value = $('#listPropietarios [value="' + dato + '"]').data('ejemplo');
+        document.getElementById('propietario.nombre').value = value;
+    }
+</script>
 
 <jsp:include page="footer.jsp" />

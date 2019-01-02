@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +48,7 @@ public class OrdenDeTrabajoController {
     }
 
     @RequestMapping(value = "/crear_orden_de_trabajo", method = RequestMethod.POST)
-    public String cargarFormCrear(@ModelAttribute("catorcena") OrdenDeTrabajo odt, Model model, HttpServletRequest request) {
+    public String cargarFormCrear(@ModelAttribute("odt") OrdenDeTrabajo odt, BindingResult result, Model model, HttpServletRequest request) {
         try {
             HttpSession objSesion = request.getSession(false);
 
@@ -68,7 +69,32 @@ public class OrdenDeTrabajoController {
 
             model.addAttribute("odt", odt);
 
-            return "crear_orden_de_trabajo";    
+            return "crear_orden_de_trabajo";
+        } catch (NullPointerException ex) {
+            return "redirect:salir.htm";
+        }
+    }
+    
+    @RequestMapping(value = "/listar_orden_de_trabajo", method = RequestMethod.GET)
+    public String cargarFormListar(Model model, HttpServletRequest request) {
+        try {
+            HttpSession objSesion = request.getSession(false);
+
+            String in = (String) objSesion.getAttribute("in");
+            if (in.equals("no")) {
+                return "redirect:index.htm";
+            }
+            String menu = (String) objSesion.getAttribute("menu");
+            if (!menu.equals("Administrador")) {
+                return "redirect:error.htm";
+            }
+            
+            OrdenDeTrabajoDB odts = new OrdenDeTrabajoDB();
+            odts.obtenerOrdenDeTrabajos();
+            
+            model.addAttribute("odts", odts.getOrden_de_trabajos());
+
+            return "listar_orden_de_trabajo";
         } catch (NullPointerException ex) {
             return "redirect:salir.htm";
         }

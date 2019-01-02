@@ -36,6 +36,7 @@
     <spring:url value="/listar_laudo.htm" var="urlListarLaudo" />
 
     <spring:url value="/crear_orden_de_trabajo.htm" var="urlCrearODT" />
+    <spring:url value="/listar_orden_de_trabajo.htm" var="urlListarODT" />
     
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
@@ -103,6 +104,7 @@
                     <li class="divider"></li>
                     <li class="dropdown-header">Orden de Trabajo</li>
                     <li><a href="${urlCrearODT}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
+                    <li><a href="${urlListarODT}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
                 </ul>
             </li>
 

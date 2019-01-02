@@ -45,6 +45,7 @@ public class CatorcenaController {
             if (in.equals("no")) {
                 return "redirect:index.htm";
             }
+            
             String menu = (String) objSesion.getAttribute("menu");
             if (!menu.equals("Administrador")) {
                 return "redirect:error.htm";
