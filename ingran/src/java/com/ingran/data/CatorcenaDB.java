@@ -1,6 +1,7 @@
 package com.ingran.data;
 
 import com.ingran.model.Catorcena;
+import com.ingran.util.Fecha;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -285,5 +286,14 @@ public class CatorcenaDB extends Conexion {
 
     public void setCatorcenas(List<Catorcena> catorcenas) {
         this.catorcenas = catorcenas;
+    }
+    
+    public static void main(String args[]){
+        Catorcena c = new Catorcena();
+        c.setActivo(false);
+        c.setFecha_inicio(Fecha.convertitTextoADate("01-01-2019"));
+        c.setFecha_fin(Fecha.convertitTextoADate("14-01-2019"));
+        c.setDescripcion(c.getFecha_inicio_formato() + " al " + c.getFecha_fin_formato());
+        System.out.println(CatorcenaDB.agregarCatorcena(c));
     }
 }

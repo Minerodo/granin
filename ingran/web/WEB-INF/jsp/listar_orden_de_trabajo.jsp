@@ -8,9 +8,7 @@
     <jsp:param name="pageTitle" value="Listar Catorcenas" />
 </jsp:include>
 
-<spring:url value="/editar_catorcena.htm" var="urlEditarCatorcena" />
-<spring:url value="/activar_catorcena.htm" var="urlActivarCatorcena" />
-<spring:url value="/desactivar_catorcena.htm" var="urlDesactivarCatorcena" />
+<spring:url value="/editar_orden_de_trabajo.htm" var="urlEditarODT" />
 
 <div class="col-md-12">
     <div id="tbl">
@@ -25,6 +23,8 @@
                         <th>Propietario</th>
                         <th>Fecha</th>
                         <th>Monto</th>
+                        <th>Avance</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +36,8 @@
                             <td>${odt.propietario.nombre}</td>
                             <td>${odt.fecha}</td>
                             <td>${odt.monto}</td>
+                            <td>${odt.avance}%</td>
+                            <td><a href="${urlEditarODT}?id=${odt.id}"><span class='glyphicon glyphicon-pencil'></span></a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -45,7 +47,7 @@
 </div>
 
 <jsp:include page="filtro.jsp">
-    <jsp:param name="columnas" value="col_1: \"select\", col_2: \"none\"," />
+    <jsp:param name="columnas" value="" />
 </jsp:include>
 
 <jsp:include page="footer.jsp" />

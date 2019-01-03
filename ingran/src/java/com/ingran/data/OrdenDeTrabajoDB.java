@@ -37,7 +37,7 @@ public class OrdenDeTrabajoDB extends Conexion {
             pst.setString(1, odt.getProyecto().getCentro_de_costo());
             pst.setString(2, odt.getPropietario().getCliente());
             pst.setString(3, odt.getTitulo());
-            pst.setDate(4, odt.getFecha());
+            pst.setString(4, odt.getFecha());
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -60,7 +60,57 @@ public class OrdenDeTrabajoDB extends Conexion {
         }
         return creado;
     }
+    
+    public static void obtenerOrdenDeTrabajo(OrdenDeTrabajo odt) {
+        Conexion conexion = new Conexion();
+        conexion.abrirConexion();
 
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consultaSQL = "SELECT odt.id, odt.proyecto, odt.propietario, odt.titulo, odt.fecha, odt.monto, odt.avance FROM ORDEN_DE_TRABAJO odt WHERE odt.id = ?;";
+
+            pst = conexion.getConexion().prepareStatement(consultaSQL);
+
+            pst.setInt(1, odt.getId());
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                odt.setId(rs.getInt(1));
+
+                CentroDeCosto cdc = new CentroDeCosto();
+                cdc.setCentro_de_costo(rs.getString(2));
+                cdc = CentroDeCostoDB.obtenerCentroDeCosto(cdc);
+                odt.setProyecto(cdc);
+
+                Cliente cliente = ClienteDB.obtenerCliente(rs.getString(3));
+                odt.setPropietario(cliente);
+
+                odt.setTitulo(rs.getString(4));
+                odt.setFecha(rs.getString(5));
+                odt.setMonto(rs.getDouble(6));
+                odt.setAvance(rs.getDouble(7));
+            }
+        } catch (SQLException e) {
+            System.err.println("ERROR: " + e);
+        } finally {
+            try {
+                if (conexion.getConexion() != null) {
+                    conexion.cerrarConexion();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("ERROR: " + e);
+            }
+        }
+    }
+    
     public void obtenerOrdenDeTrabajos() {
         if (getConexion() == null) {
             abrirConexion();
@@ -92,7 +142,7 @@ public class OrdenDeTrabajoDB extends Conexion {
                 odt.setPropietario(cliente);
 
                 odt.setTitulo(rs.getString(4));
-                odt.setFecha(rs.getDate(5));
+                odt.setFecha(rs.getString(5));
                 odt.setMonto(rs.getDouble(6));
                 odt.setAvance(rs.getDouble(7));
 
@@ -126,7 +176,7 @@ public class OrdenDeTrabajoDB extends Conexion {
         cliente.setCliente("123-4");
         odt.setPropietario(cliente);
         odt.setTitulo("prueba desde consola");
-        odt.setFecha(Fecha.convertitTextoADate("01-01-2019"));
+//        odt.setFecha(Fecha.convertitTextoADate("01-01-2019"));
         OrdenDeTrabajoDB.crearOrdenDeTrabajo(odt);
     }
 }

@@ -41,6 +41,7 @@
                 
                 <prop key="crear_orden_de_trabajo.htm">OrdenDeTrabajoController</prop>
                 <prop key="listar_orden_de_trabajo.htm">OrdenDeTrabajoController</prop>
+                <prop key="editar_orden_de_trabajo.htm">OrdenDeTrabajoController</prop>
                              
                 <prop key="crear_planilla_hora.htm">PlanillaHoraController</prop>
                 <prop key="listar_catorcena_cargada.htm">PlanillaHoraController</prop>

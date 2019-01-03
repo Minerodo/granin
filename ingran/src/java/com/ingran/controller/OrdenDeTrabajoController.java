@@ -3,7 +3,6 @@ package com.ingran.controller;
 import com.ingran.data.CentroDeCostoDB;
 import com.ingran.data.ClienteDB;
 import com.ingran.data.OrdenDeTrabajoDB;
-import com.ingran.model.CentroDeCosto;
 import com.ingran.model.OrdenDeTrabajo;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -95,6 +94,41 @@ public class OrdenDeTrabajoController {
             model.addAttribute("odts", odts.getOrden_de_trabajos());
 
             return "listar_orden_de_trabajo";
+        } catch (NullPointerException ex) {
+            return "redirect:salir.htm";
+        }
+    }
+    
+    @RequestMapping(value = "/editar_orden_de_trabajo", method = RequestMethod.GET)
+    public String cargarFormEditar(Model model, HttpServletRequest request) {
+        try {
+            HttpSession objSesion = request.getSession(false);
+
+            String in = (String) objSesion.getAttribute("in");
+            if (in.equals("no")) {
+                return "redirect:index.htm";
+            }
+            
+            String menu = (String) objSesion.getAttribute("menu");
+            if (!menu.equals("Administrador")) {
+                return "redirect:error.htm";
+            }
+            
+            OrdenDeTrabajo odt = new OrdenDeTrabajo();
+            odt.setId(Integer.parseInt(request.getParameter("id")));
+            OrdenDeTrabajoDB.obtenerOrdenDeTrabajo(odt);
+            
+            CentroDeCostoDB proyectos = new CentroDeCostoDB();
+            proyectos.obtenerCentroDeCostos();
+            model.addAttribute("proyectos", proyectos.getCentro_de_costos());
+            
+            ClienteDB propietarios = new ClienteDB();
+            propietarios.obtenerClientes();
+            model.addAttribute("propietarios", propietarios.getClientes());
+
+            model.addAttribute("odt", odt);
+
+            return "editar_orden_de_trabajo";
         } catch (NullPointerException ex) {
             return "redirect:salir.htm";
         }

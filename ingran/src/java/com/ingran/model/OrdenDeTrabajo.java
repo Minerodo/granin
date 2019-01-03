@@ -1,6 +1,5 @@
 package com.ingran.model;
 
-import java.sql.Date;
 import java.util.List;
 
 public class OrdenDeTrabajo {
@@ -9,7 +8,7 @@ public class OrdenDeTrabajo {
     private CentroDeCosto proyecto;
     private Cliente propietario;
     private String titulo;
-    private Date fecha;
+    private String fecha;
     private Double avance;
     private Double monto;
     private List<OrdenDeTrabajoDetalle> actividades;
@@ -46,11 +45,11 @@ public class OrdenDeTrabajo {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
