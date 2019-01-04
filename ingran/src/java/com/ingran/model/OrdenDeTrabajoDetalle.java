@@ -7,6 +7,7 @@ public class OrdenDeTrabajoDetalle {
     private Double cantidad;
     private Double precio_unitario;
     private Double anvance;
+    private Double subtotal;
 
     public Integer getId() {
         return id;
@@ -46,5 +47,13 @@ public class OrdenDeTrabajoDetalle {
 
     public void setAnvance(Double anvance) {
         this.anvance = anvance;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
     }
 }

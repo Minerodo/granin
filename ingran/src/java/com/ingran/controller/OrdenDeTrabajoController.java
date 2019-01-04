@@ -2,8 +2,10 @@ package com.ingran.controller;
 
 import com.ingran.data.CentroDeCostoDB;
 import com.ingran.data.ClienteDB;
+import com.ingran.data.LaudoDB;
 import com.ingran.data.OrdenDeTrabajoDB;
 import com.ingran.model.OrdenDeTrabajo;
+import com.ingran.model.OrdenDeTrabajoDetalle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -127,6 +129,14 @@ public class OrdenDeTrabajoController {
             model.addAttribute("propietarios", propietarios.getClientes());
 
             model.addAttribute("odt", odt);
+            
+            //Orden de Trabajo Detalle
+            LaudoDB actividades = new LaudoDB();
+            actividades.obtenerLaudos();
+            model.addAttribute("actividades", actividades.getLaudos());
+            
+            model.addAttribute("odtd", new OrdenDeTrabajoDetalle());
+            //Orden de Trabajo Detalle
 
             return "editar_orden_de_trabajo";
         } catch (NullPointerException ex) {
