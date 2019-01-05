@@ -8,8 +8,8 @@ public class Conexion {
 
     private String USERNAME = "ingrandbc";
     private String PASSWORD = "Pa$$w0rd";
-    private String HOST = "localhost";
-    //private String HOST = "192.168.1.224";
+    //private String HOST = "localhost";
+    private String HOST = "192.168.1.245";
     //private String HOST = "localhost";
     private String PORT = "1433";
     //private String PORT = "61101";
