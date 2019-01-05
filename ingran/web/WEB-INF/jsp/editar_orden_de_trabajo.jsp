@@ -20,7 +20,7 @@
     </c:if>
     <form:form name="frrc" id="frrc" method="POST" action="" commandName="odt">
         <div class="form-group">
-            <form:label path="id">Centro de Costo:</form:label>
+            <form:label path="id">Id:</form:label>
             <form:input path="id" class="form-control" type="text" required="true" readonly="true"/>
             <form:errors path="id"/>
         </div>
@@ -35,7 +35,7 @@
             <form:errors path="proyecto.descripcion"/>
         </div>
         <div class="form-group">
-            <form:label path="propietario.cliente">Cliente</form:label>
+            <form:label path="propietario.cliente">Cliente:</form:label>
             <form:input path="propietario.cliente" onfocusout="seleccionarCliente();" class="form-control" placeholder="Cliente" list="listPropietarios" type="text" required="true"/>
             <form:errors path="propietario.cliente"/>
         </div>
@@ -103,6 +103,7 @@
                     <form:input path="subtotal" class="form-control" type="text" required="true" readonly="true" />
                     <form:errors path="subtotal"/>
                 </div>
+                <input type="submit" name="agregar" class="btn btn-primary" value="Agregar">
             </div>
         </form:form>
     </div>
@@ -136,31 +137,19 @@
                         <th>P.U.</th>
                         <th>SubTotal</th>
                         <th>Avance</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="catorcena" items="${catorcenas}">
-                        <tr class="<c:choose><c:when test="${catorcena.activo}">success</c:when><c:otherwise>danger</c:otherwise></c:choose>">
-                            <td>${catorcena.descripcion}</td>
-                            <td>
-                                <c:if test="${catorcena.activo}">
-                                    Activa
-                                </c:if>
-                                <c:if test="${!catorcena.activo}">
-                                    Desactivada
-                                </c:if>
-                            </td>
-                            <td>
-                                <a href="${urlEditarCatorcena}?id=${catorcena.id}"><span class='glyphicon glyphicon-pencil'></span></a>
-                                    <c:choose>
-                                        <c:when test="${catorcena.activo}">
-                                        <a href="${urlDesactivarCatorcena}?id=${catorcena.id}"><span class='glyphicon glyphicon-eye-open'></span></a>
-                                        </c:when>
-                                        <c:otherwise>
-                                        <a href="${urlActivarCatorcena}?id=${catorcena.id}"><span class='glyphicon glyphicon-eye-close'></span></a>
-                                        </c:otherwise>
-                                    </c:choose>
-                            </td>
+                    <c:forEach var="act" items="${acti}">
+                        <tr>
+                            <td>${act.laudo.id}</td>
+                            <td>${act.laudo.descripcion}</td>
+                            <td>${act.laudo.unidad_medida.nombre}</td>
+                            <td>${act.cantidad}</td>
+                            <td>${act.precio_unitario}</td>
+                            <td>${act.subtotal}</td>
+                            <td>${act.avance}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

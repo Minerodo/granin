@@ -1,6 +1,9 @@
 package com.ingran.data;
 
+import com.ingran.model.Laudo;
 import com.ingran.model.OrdenDeTrabajo;
+import com.ingran.model.OrdenDeTrabajoDetalle;
+import com.ingran.model.Unidad_Medida;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,43 +12,52 @@ import java.util.List;
 
 public class OrdenDeTrabajoDetalleDB extends Conexion {
 
-    private List<OrdenDeTrabajo> ordene_de_trabajos = new ArrayList<>();
+    private List<OrdenDeTrabajoDetalle> ordene_de_trabajos_detalle = new ArrayList<>();
 
-    public List<OrdenDeTrabajo> getOrdene_de_trabajos() {
-        return ordene_de_trabajos;
+    public List<OrdenDeTrabajoDetalle> getOrdene_de_trabajos_detalle() {
+        return ordene_de_trabajos_detalle;
     }
 
-    public void setOrdene_de_trabajos(List<OrdenDeTrabajo> ordene_de_trabajos) {
-        this.ordene_de_trabajos = ordene_de_trabajos;
+    public void setOrdene_de_trabajos_detalle(List<OrdenDeTrabajoDetalle> ordene_de_trabajos_detalle) {
+        this.ordene_de_trabajos_detalle = ordene_de_trabajos_detalle;
     }
 
-    public void obtenerCatorcenas() {
+    public void obtenerOrdenDeTrabajoDetalle() {
         if (getConexion() == null) {
             abrirConexion();
         }
 
-        getOrdene_de_trabajos().clear();
+        getOrdene_de_trabajos_detalle().clear();
 
         PreparedStatement pst = null;
         ResultSet rs = null;
 
         try {
-            String consultaSQL = "SELECT id, descripcion, fecha_inicio, fecha_fin, activo FROM CATORCENA ORDER BY fecha_inicio DESC, fecha_fin DESC;";
+            String consultaSQL = "SELECT l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario) FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id;";
 
             pst = getConexion().prepareStatement(consultaSQL);
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
-//                Catorcena catorcena = new Catorcena();
-//
-//                catorcena.setId(rs.getInt(1));
-//                catorcena.setDescripcion(rs.getString(2));
-//                catorcena.setFecha_inicio(rs.getDate(3));
-//                catorcena.setFecha_fin(rs.getDate(4));
-//                catorcena.setActivo(rs.getBoolean(5));
-//
-//                catorcenas.add(catorcena);
+                OrdenDeTrabajoDetalle odtd = new OrdenDeTrabajoDetalle();
+
+                Laudo laudo = new Laudo();
+                laudo.setId(rs.getInt(1));
+                laudo.setDescripcion(rs.getString(2));
+
+                Unidad_Medida um = new Unidad_Medida();
+                um.setNombre(rs.getString(3));
+
+                laudo.setUnidad_medida(um);
+
+                odtd.setLaudo(laudo);
+
+                odtd.setCantidad(rs.getDouble(4));
+                odtd.setPrecio_unitario(rs.getDouble(5));
+                odtd.setSubtotal(rs.getDouble(6));
+
+                ordene_de_trabajos_detalle.add(odtd);
             }
         } catch (SQLException e) {
             System.err.println("ERROR: " + e);
@@ -63,6 +75,53 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
             } catch (SQLException e) {
                 System.err.println("ERROR: " + e);
             }
+        }
+    }
+
+    public static boolean crearOrdenDeTrabajoDetalle(OrdenDeTrabajo odt, OrdenDeTrabajoDetalle odtd) {
+        Boolean creado = true;
+        Conexion conexion = new Conexion();
+        conexion.abrirConexion();
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            String consultaSQL = "INSERT INTO ORDEN_DE_TRABAJO_DETALLE(orden_de_trabajo, laudo, cantidad, precio_unitario) VALUES(?, ?, ?, ?);";
+
+            pst = conexion.getConexion().prepareStatement(consultaSQL);
+
+            pst.setInt(1, odt.getId());
+            pst.setInt(2, odtd.getLaudo().getId());
+            pst.setDouble(3, odtd.getCantidad());
+            pst.setDouble(4, odtd.getLaudo().getCosto());
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            creado = false;
+            System.err.println("ERROR: " + e);
+        } finally {
+            try {
+                if (conexion.getConexion() != null) {
+                    conexion.cerrarConexion();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("ERROR: " + e);
+            }
+        }
+        return creado;
+    }
+
+    public static void main(String[] args) {
+        OrdenDeTrabajoDetalleDB acti = new OrdenDeTrabajoDetalleDB();
+        acti.obtenerOrdenDeTrabajoDetalle();
+        for (OrdenDeTrabajoDetalle odtd : acti.getOrdene_de_trabajos_detalle()) {
+            System.out.println(odtd.getLaudo().getDescripcion());
         }
     }
 }
