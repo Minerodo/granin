@@ -96,7 +96,7 @@
             </li>
 
             <li class="dropdown"><!-- Obra -->
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Obra<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Obra<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span></a>
                 <ul class="dropdown-menu forAnimate" role="menu">
                     <li class="dropdown-header">Laudo</li>
                     <li><a href="${urlCrearLaudo}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>

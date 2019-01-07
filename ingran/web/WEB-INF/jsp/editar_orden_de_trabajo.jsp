@@ -88,9 +88,9 @@
                     <form:input path="laudo.unidad_medida.nombre" class="form-control" type="text" required="true" readonly="true" />
                     <form:errors path="laudo.unidad_medida.nombre"/>
                 </div>
-                <div class="form-group col-xs-2">
+                <div class="form-group col-xs-1">
                     <form:label path="cantidad">Cantidad:</form:label>
-                    <form:input path="cantidad" onchange="subtotal();" class="form-control" type="text" required="true" />
+                    <form:input path="cantidad" class="form-control" type="text" required="true" />
                     <form:errors path="cantidad"/>
                 </div>
                 <div class="form-group col-xs-2">
@@ -103,8 +103,9 @@
                     <form:input path="subtotal" class="form-control" type="text" required="true" readonly="true" />
                     <form:errors path="subtotal"/>
                 </div>
-                <input type="submit" name="agregar" class="btn btn-primary" value="Agregar">
+                
             </div>
+                <input type="submit" name="agregar" class="btn btn-primary" value="Agregar">
         </form:form>
     </div>
 
@@ -126,7 +127,7 @@
     <h3 align="center"><p class="text-muted">DETALLE DE ORDEN</p></h3>
     <div id="tbl">
         <div class="table-responsive table-centered">
-            <jsp:include page="filtro_botones.jsp"/>
+
             <table class="table table-hover" id="filtro">
                 <thead>
                     <tr>
@@ -138,7 +139,6 @@
                         <th>P.U.</th>
                         <th>SubTotal</th>
                         <th>Avance</th>
-                        <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,7 +171,7 @@
         <option value="${propietario.cliente}" label="${propietario.nombre}" data-ejemplo="${propietario.nombre}"/>
     </c:forEach>
 </datalist>
-            
+
 <datalist id="listActividades">
     <c:forEach var="actividad" items="${actividades}">
         <option value="${actividad.descripcion}" label="${actividad.id}" data-ejemplo="${actividad.id}" data-ejemplo1="${actividad.costo}" data-ejemplo2="${actividad.unidad_medida.nombre}"/>
@@ -190,7 +190,7 @@
         var value = $('#listPropietarios [value="' + dato + '"]').data('ejemplo');
         document.getElementById('propietario.nombre').value = value;
     }
-    
+
     function seleccionarLaudo() {
         var dato = document.getElementById('laudo.descripcion').value;
         var value = $('#listActividades [value="' + dato + '"]').data('ejemplo');
@@ -200,7 +200,7 @@
         var value2 = $('#listActividades [value="' + dato + '"]').data('ejemplo2');
         document.getElementById('laudo.unidad_medida.nombre').value = value2;
     }
-    
+
     function subtotal() {
         alert('hola');
     }
