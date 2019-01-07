@@ -22,7 +22,7 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
         this.ordene_de_trabajos_detalle = ordene_de_trabajos_detalle;
     }
 
-    public void obtenerOrdenDeTrabajoDetalle() {
+    public void obtenerOrdenDeTrabajoDetalle(OrdenDeTrabajo odt) {
         if (getConexion() == null) {
             abrirConexion();
         }
@@ -33,29 +33,33 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
         ResultSet rs = null;
 
         try {
-            String consultaSQL = "SELECT l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario) FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id;";
+            String consultaSQL = "SELECT odtd.id, l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario) FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id WHERE odtd.orden_de_trabajo = ?;";
 
             pst = getConexion().prepareStatement(consultaSQL);
+            
+            pst.setInt(1, odt.getId());
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 OrdenDeTrabajoDetalle odtd = new OrdenDeTrabajoDetalle();
 
+                odtd.setId(rs.getInt(1));
+                
                 Laudo laudo = new Laudo();
-                laudo.setId(rs.getInt(1));
-                laudo.setDescripcion(rs.getString(2));
+                laudo.setId(rs.getInt(2));
+                laudo.setDescripcion(rs.getString(3));
 
                 Unidad_Medida um = new Unidad_Medida();
-                um.setNombre(rs.getString(3));
+                um.setNombre(rs.getString(4));
 
                 laudo.setUnidad_medida(um);
 
                 odtd.setLaudo(laudo);
 
-                odtd.setCantidad(rs.getDouble(4));
-                odtd.setPrecio_unitario(rs.getDouble(5));
-                odtd.setSubtotal(rs.getDouble(6));
+                odtd.setCantidad(rs.getDouble(5));
+                odtd.setPrecio_unitario(rs.getDouble(6));
+                odtd.setSubtotal(rs.getDouble(7));
 
                 ordene_de_trabajos_detalle.add(odtd);
             }
@@ -115,13 +119,5 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
             }
         }
         return creado;
-    }
-
-    public static void main(String[] args) {
-        OrdenDeTrabajoDetalleDB acti = new OrdenDeTrabajoDetalleDB();
-        acti.obtenerOrdenDeTrabajoDetalle();
-        for (OrdenDeTrabajoDetalle odtd : acti.getOrdene_de_trabajos_detalle()) {
-            System.out.println(odtd.getLaudo().getDescripcion());
-        }
     }
 }

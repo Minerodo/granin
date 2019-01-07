@@ -90,7 +90,7 @@
                 </div>
                 <div class="form-group col-xs-2">
                     <form:label path="cantidad">Cantidad:</form:label>
-                    <form:input path="cantidad" class="form-control" type="text" required="true" />
+                    <form:input path="cantidad" onchange="subtotal();" class="form-control" type="text" required="true" />
                     <form:errors path="cantidad"/>
                 </div>
                 <div class="form-group col-xs-2">
@@ -130,6 +130,7 @@
             <table class="table table-hover" id="filtro">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Item</th>
                         <th>Descripcion</th>
                         <th>Unidad</th>
@@ -143,6 +144,7 @@
                 <tbody>
                     <c:forEach var="act" items="${acti}">
                         <tr>
+                            <td><input type="checkbox" name="registro" value="${act.id}"/></td>
                             <td>${act.laudo.id}</td>
                             <td>${act.laudo.descripcion}</td>
                             <td>${act.laudo.unidad_medida.nombre}</td>
@@ -197,6 +199,10 @@
         document.getElementById('laudo.costo').value = value1;
         var value2 = $('#listActividades [value="' + dato + '"]').data('ejemplo2');
         document.getElementById('laudo.unidad_medida.nombre').value = value2;
+    }
+    
+    function subtotal() {
+        alert('hola');
     }
 </script>
 

@@ -138,6 +138,11 @@ public class OrdenDeTrabajoController {
             model.addAttribute("actividades", actividades.getLaudos());
 
             model.addAttribute("odtd", new OrdenDeTrabajoDetalle());
+            
+            OrdenDeTrabajoDetalleDB odtds = new OrdenDeTrabajoDetalleDB();
+            odtds.obtenerOrdenDeTrabajoDetalle(odt);
+            
+            model.addAttribute("acti", odtds.getOrdene_de_trabajos_detalle());
             //Orden de Trabajo Detalle
 
             return "editar_orden_de_trabajo";
@@ -168,7 +173,7 @@ public class OrdenDeTrabajoController {
                     if (OrdenDeTrabajoDetalleDB.crearOrdenDeTrabajoDetalle(odt, odtd))
                     {
                         model.addAttribute("css", "success");
-                        model.addAttribute("msg", "Actividad Registrada Correctamente !!!");
+                        model.addAttribute("msg", "Actividad Registrada Correctamente!!!");
                     }
                 } catch (NullPointerException ex) {
                 }
@@ -192,7 +197,7 @@ public class OrdenDeTrabajoController {
             model.addAttribute("actividades", actividades.getLaudos());
             
             OrdenDeTrabajoDetalleDB acti = new OrdenDeTrabajoDetalleDB();
-            acti.obtenerOrdenDeTrabajoDetalle();
+            acti.obtenerOrdenDeTrabajoDetalle(odt);
             model.addAttribute("acti", acti.getOrdene_de_trabajos_detalle());
 
             model.addAttribute("odtd", new OrdenDeTrabajoDetalle());

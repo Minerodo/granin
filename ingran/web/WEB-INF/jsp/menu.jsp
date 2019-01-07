@@ -104,7 +104,7 @@
                     <li class="divider"></li>
                     <li class="dropdown-header">Orden de Trabajo</li>
                     <li><a href="${urlCrearODT}"> - Crear<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-                    <li><a href="${urlListarODT}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
+                    <li><a href="${urlListarODT}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
                 </ul>
             </li>
 
