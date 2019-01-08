@@ -131,7 +131,7 @@
             <table class="table table-hover" id="filtro">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>#</th>
                         <th>Item</th>
                         <th>Descripcion</th>
                         <th>Unidad</th>
