@@ -1,5 +1,6 @@
 package com.ingran.data;
 
+import com.ingran.model.Fase;
 import com.ingran.model.Laudo;
 import com.ingran.model.OrdenDeTrabajo;
 import com.ingran.model.OrdenDeTrabajoDetalle;
@@ -33,7 +34,7 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
         ResultSet rs = null;
 
         try {
-            String consultaSQL = "SELECT odtd.id, l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario) FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id WHERE odtd.orden_de_trabajo = ?;";
+            String consultaSQL = "SELECT odtd.id, l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario), odtd.fase FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id WHERE odtd.orden_de_trabajo = ?;";
 
             pst = getConexion().prepareStatement(consultaSQL);
             
@@ -60,6 +61,10 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
                 odtd.setCantidad(rs.getDouble(5));
                 odtd.setPrecio_unitario(rs.getDouble(6));
                 odtd.setSubtotal(rs.getDouble(7));
+                
+                Fase fase = new Fase();
+                fase.setFase(rs.getString(8));
+                //FaseDB.
 
                 ordene_de_trabajos_detalle.add(odtd);
             }

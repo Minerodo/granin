@@ -8,6 +8,7 @@ public class OrdenDeTrabajoDetalle {
     private Double precio_unitario;
     private Double avance;
     private Double subtotal;
+    private Fase fase;
 
     public Integer getId() {
         return id;
@@ -55,5 +56,13 @@ public class OrdenDeTrabajoDetalle {
 
     public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Fase getFase() {
+        return fase;
+    }
+
+    public void setFase(Fase fase) {
+        this.fase = fase;
     }
 }

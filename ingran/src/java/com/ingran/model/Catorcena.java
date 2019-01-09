@@ -1,13 +1,12 @@
 package com.ingran.model;
 
 import com.ingran.util.Fecha;
-import java.sql.Date;
 
 public class Catorcena {
 
     private Integer id;
-    private Date fecha_inicio;
-    private Date fecha_fin;
+    private String fecha_inicio;
+    private String fecha_fin;
     private Boolean activo;
     private String descripcion;
 
@@ -19,27 +18,27 @@ public class Catorcena {
         this.id = id;
     }
 
-    public Date getFecha_inicio() {
+    public String getFecha_inicio() {
         return fecha_inicio;
     }
 
     public String getFecha_inicio_formato() {
-        return Fecha.convertirDateATexto(getFecha_inicio());
+        return Fecha.convertirTextoAFecha(getFecha_inicio());
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
+    public void setFecha_inicio(String fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Date getFecha_fin() {
+    public String getFecha_fin() {
         return fecha_fin;
     }
 
     public String getFecha_fin_formato() {
-        return Fecha.convertirDateATexto(getFecha_fin());
+        return Fecha.convertirTextoAFecha(getFecha_fin());
     }
 
-    public void setFecha_fin(Date fecha_fin) {
+    public void setFecha_fin(String fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
 

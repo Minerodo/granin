@@ -1,7 +1,6 @@
 package com.ingran.data;
 
 import com.ingran.model.Catorcena;
-import com.ingran.util.Fecha;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,8 +33,8 @@ public class CatorcenaDB extends Conexion {
 
                 catorcena.setId(rs.getInt(1));
                 catorcena.setDescripcion(rs.getString(2));
-                catorcena.setFecha_inicio(rs.getDate(3));
-                catorcena.setFecha_fin(rs.getDate(4));
+                catorcena.setFecha_inicio(rs.getString(3));
+                catorcena.setFecha_fin(rs.getString(4));
                 catorcena.setActivo(rs.getBoolean(5));
 
                 catorcenas.add(catorcena);
@@ -72,8 +71,8 @@ public class CatorcenaDB extends Conexion {
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
             pst.setString(1, catorcena.getDescripcion());
-            pst.setDate(2, catorcena.getFecha_inicio());
-            pst.setDate(3, catorcena.getFecha_fin());
+            pst.setString(2, catorcena.getFecha_inicio());
+            pst.setString(3, catorcena.getFecha_fin());
             pst.setBoolean(4, catorcena.getActivo());
 
             pst.executeUpdate();
@@ -111,8 +110,8 @@ public class CatorcenaDB extends Conexion {
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
             pst.setString(1, catorcena.getDescripcion());
-            pst.setDate(2, catorcena.getFecha_inicio());
-            pst.setDate(3, catorcena.getFecha_fin());
+            pst.setString(2, catorcena.getFecha_inicio());
+            pst.setString(3, catorcena.getFecha_fin());
             pst.setBoolean(4, catorcena.getActivo());
             pst.setInt(5, catorcena.getId());
 
@@ -156,8 +155,8 @@ public class CatorcenaDB extends Conexion {
             while (rs.next()) {
                 catorcena.setId(rs.getInt(1));
                 catorcena.setDescripcion(rs.getString(2));
-                catorcena.setFecha_inicio(rs.getDate(3));
-                catorcena.setFecha_fin(rs.getDate(4));
+                catorcena.setFecha_inicio(rs.getString(3));
+                catorcena.setFecha_fin(rs.getString(4));
                 catorcena.setActivo(rs.getBoolean(5));
             }
         } catch (SQLException e) {
@@ -197,8 +196,8 @@ public class CatorcenaDB extends Conexion {
             while (rs.next()) {
                 catorcena.setId(rs.getInt(1));
                 catorcena.setDescripcion(rs.getString(2));
-                catorcena.setFecha_inicio(rs.getDate(3));
-                catorcena.setFecha_fin(rs.getDate(4));
+                catorcena.setFecha_inicio(rs.getString(3));
+                catorcena.setFecha_fin(rs.getString(4));
                 catorcena.setActivo(rs.getBoolean(5));
             }
         } catch (SQLException e) {
@@ -255,8 +254,8 @@ public class CatorcenaDB extends Conexion {
 
                 catorcena.setId(rs.getInt(1));
                 catorcena.setDescripcion(rs.getString(2));
-                catorcena.setFecha_inicio(rs.getDate(3));
-                catorcena.setFecha_fin(rs.getDate(4));
+                catorcena.setFecha_inicio(rs.getString(3));
+                catorcena.setFecha_fin(rs.getString(4));
                 catorcena.setActivo(rs.getBoolean(5));
 
                 catorcenas.add(catorcena);
@@ -288,12 +287,12 @@ public class CatorcenaDB extends Conexion {
         this.catorcenas = catorcenas;
     }
     
-    public static void main(String args[]){
-        Catorcena c = new Catorcena();
-        c.setActivo(false);
-        c.setFecha_inicio(Fecha.convertitTextoADate("01-01-2019"));
-        c.setFecha_fin(Fecha.convertitTextoADate("14-01-2019"));
-        c.setDescripcion(c.getFecha_inicio_formato() + " al " + c.getFecha_fin_formato());
-        System.out.println(CatorcenaDB.agregarCatorcena(c));
-    }
+//    public static void main(String args[]){
+//        Catorcena c = new Catorcena();
+//        c.setActivo(false);
+//        c.setFecha_inicio(Fecha.convertitTextoAString("01-01-2019"));
+//        c.setFecha_fin(Fecha.convertitTextoAString("14-01-2019"));
+//        c.setDescripcion(c.getFecha_inicio_formato() + " al " + c.getFecha_fin_formato());
+//        System.out.println(CatorcenaDB.agregarCatorcena(c));
+//    }
 }

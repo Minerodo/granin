@@ -21,6 +21,19 @@ public class Fecha {
         }
         return fech;
     }
+    
+    public static String convertirTextoAFecha(String fecha) {
+        Date fech = null;
+        try {
+            fecha = convertirFecha(fecha);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", new Locale("es", "SV"));
+            java.util.Date fechaDate = sdf.parse(fecha);
+            fech = new Date(fechaDate.getTime());
+        } catch (ParseException ex) {
+            Logger.getLogger(Fecha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return convertirDateATexto(fech);
+    }
 
     public static String convertirDateATexto(Date fecha) {
         DateFormat df = new SimpleDateFormat("dd-MMMM-yyyy", new Locale("es", "SV"));

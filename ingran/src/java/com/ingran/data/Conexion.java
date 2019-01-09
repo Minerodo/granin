@@ -6,15 +6,15 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private String USERNAME = "ingrandbc";
-    //private String USERNAME = "mrivera";
-    private String PASSWORD = "Pa$$w0rd";
-    //private String PASSWORD = "PitmanSoft18";
+    //private String USERNAME = "ingrandbc";
+    private String USERNAME = "mrivera";
+    //private String PASSWORD = "Pa$$w0rd";
+    private String PASSWORD = "PitmanSoft18";
     //private String HOST = "localhost";
-    private String HOST = "192.168.1.245";
-    //private String HOST = "192.168.1.224";
-    private static String DATABASE_EXACTUS = "PRUEBA";
-    //private static String DATABASE_EXACTUS = "EXACTUS";
+    //private String HOST = "192.168.1.245";
+    private String HOST = "192.168.1.224";
+    //private static String DATABASE_EXACTUS = "PRUEBA";
+    private static String DATABASE_EXACTUS = "EXACTUS";
     
     private String PORT = "1433";
     private String DATABASE = "PLANILLA";

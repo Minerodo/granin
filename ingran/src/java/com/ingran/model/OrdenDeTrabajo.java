@@ -11,6 +11,7 @@ public class OrdenDeTrabajo {
     private String fecha;
     private Double avance;
     private Double monto;
+    //private Fase fase;
     private List<OrdenDeTrabajoDetalle> actividades;
 
     public Integer getId() {
@@ -68,6 +69,14 @@ public class OrdenDeTrabajo {
     public void setMonto(Double monto) {
         this.monto = monto;
     }
+
+//    public Fase getFase() {
+//        return fase;
+//    }
+
+//    public void setFase(Fase fase) {
+//        this.fase = fase;
+//    }
 
     public List<OrdenDeTrabajoDetalle> getActividades() {
         return actividades;
