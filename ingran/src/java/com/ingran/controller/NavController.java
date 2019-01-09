@@ -41,9 +41,9 @@ public class NavController {
             objSesion.setAttribute("nombre", u.getEmpleado().getNombre());
             objSesion.setAttribute("dui", u.getEmpleado().getEmpleado());
 
-            if(u.getRecuperacion()){
-                return "redirect:editar_usuario_credenciales.htm";
-            }
+//            if(u.getRecuperacion()){
+//                return "redirect:editar_usuario_credenciales.htm";
+//            }
             return "redirect:inicio.htm";
         }
 

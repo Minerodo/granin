@@ -7,19 +7,20 @@ import java.sql.SQLException;
 public class Conexion {
 
     private String USERNAME = "ingrandbc";
+    //private String USERNAME = "mrivera";
     private String PASSWORD = "Pa$$w0rd";
+    //private String PASSWORD = "PitmanSoft18";
     //private String HOST = "localhost";
     private String HOST = "192.168.1.245";
-    //private String HOST = "localhost";
+    //private String HOST = "192.168.1.224";
+    private static String DATABASE_EXACTUS = "PRUEBA";
+    //private static String DATABASE_EXACTUS = "EXACTUS";
+    
     private String PORT = "1433";
-    //private String PORT = "61101";
     private String DATABASE = "PLANILLA";
     private String CLASSNAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private String URL = "jdbc:sqlserver://" + HOST + ":" + PORT + ";databaseName=" + DATABASE;
     //private String URL = "jdbc:sqlserver://" + HOST + ":" + PORT + ";";
-
-    private static String DATABASE_EXACTUS = "PRUEBA";
-    //private static String DATABASE_EXACTUS = "EXACTUS";
     
     public static String getDBEXACTUS(){
         return DATABASE_EXACTUS;
