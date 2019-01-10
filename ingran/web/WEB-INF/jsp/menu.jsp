@@ -95,7 +95,8 @@
                 </ul>
             </li>
 
-            <li class="dropdown"><!-- Obra -->
+            <!--
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Obra<span class="caret"></span><span class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span></a>
                 <ul class="dropdown-menu forAnimate" role="menu">
                     <li class="dropdown-header">Laudo</li>
@@ -107,6 +108,7 @@
                     <li><a href="${urlListarODT}"> - Listar<span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
                 </ul>
             </li>
+            -->
 
             <li><a href="${urlSalir}">Cerrar Sesion <span class="pull-right hidden-xs showopacity glyphicon glyphicon-off"></span></a></li>
 
