@@ -16,7 +16,7 @@
             <jsp:include page="filtro_botones.jsp"/>
             <table class="table table-hover" id="filtro">
                 <thead>
-                    <tr class="">
+                    <tr>
                         <th>Id</th>
                         <th>Titulo</th>
                         <th>Proyecto</th>
@@ -24,7 +24,7 @@
                         <th>Fecha</th>
                         <th>Monto</th>
                         <th>Avance</th>
-                        <th>Acciones</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +35,8 @@
                             <td>${odt.proyecto.descripcion}</td>
                             <td>${odt.propietario.nombre}</td>
                             <td>${odt.fecha}</td>
-                            <td>${odt.monto}</td>
-                            <td>${odt.avance}%</td>
+                            <td>$${String.format("%.2f", odt.monto)}</td>
+                            <td>${String.format("%.2f", odt.avance)}%</td>
                             <td><a href="${urlEditarODT}?id=${odt.id}"><span class='glyphicon glyphicon-pencil'></span></a></td>
                         </tr>
                     </c:forEach>
@@ -47,7 +47,7 @@
 </div>
 
 <jsp:include page="filtro.jsp">
-    <jsp:param name="columnas" value="" />
+    <jsp:param name="columnas" value="col_0 : \"none\", col_7 : \"none\"," />
 </jsp:include>
 
 <jsp:include page="footer.jsp" />

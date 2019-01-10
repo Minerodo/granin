@@ -4,6 +4,7 @@ import com.ingran.model.Fase;
 import com.ingran.model.Laudo;
 import com.ingran.model.OrdenDeTrabajo;
 import com.ingran.model.OrdenDeTrabajoDetalle;
+import com.ingran.model.Proyecto;
 import com.ingran.model.Unidad_Medida;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,11 +35,12 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
         ResultSet rs = null;
 
         try {
-            String consultaSQL = "SELECT odtd.id, l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario), odtd.fase FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id WHERE odtd.orden_de_trabajo = ?;";
+            String consultaSQL = "SELECT odtd.id, l.id, l.descripcion, um.nombre, odtd.cantidad, odtd.precio_unitario, (odtd.cantidad * odtd.precio_unitario), odtd.fase, (SELECT sf.nombre from "+Conexion.getDBEXACTUS()+".ingran.FASE_PY sf INNER JOIN "+ Conexion.getDBEXACTUS()+".ingran.PROYECTO_PY f ON f.PROYECTO = sf.PROYECTO where sf.fase LIKE concat(left(REPLACE(odtd.fase, '.00',''), LEN(REPLACE(odtd.fase, '.00',''))-3),'.00%') AND sf.ACEPTA_DATOS = 'N' AND f.CENTRO_COSTO = ?), odtd.cantidad_avanzada FROM ORDEN_DE_TRABAJO_DETALLE odtd INNER JOIN LAUDO l ON odtd.laudo = l.id INNER JOIN UNIDAD_MEDIDA um ON l.tipo_unidad = um.id WHERE odtd.orden_de_trabajo = ?;";
 
             pst = getConexion().prepareStatement(consultaSQL);
             
-            pst.setInt(1, odt.getId());
+            pst.setString(1, odt.getProyecto().getCentro_de_costo());
+            pst.setInt(2, odt.getId());
 
             rs = pst.executeQuery();
 
@@ -64,7 +66,10 @@ public class OrdenDeTrabajoDetalleDB extends Conexion {
                 
                 Fase fase = new Fase();
                 fase.setFase(rs.getString(8));
-                //FaseDB.
+                fase.setNombre(rs.getString(9));
+                odtd.setFase(fase);
+                
+                odtd.setCantidad_avanzada(rs.getDouble(10));
 
                 ordene_de_trabajos_detalle.add(odtd);
             }

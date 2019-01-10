@@ -57,6 +57,7 @@
                 <prop key="crear_proyecto_horario.htm">ProyectoController</prop>
                 <prop key="listar_proyecto_horario.htm">ProyectoController</prop>
                 <prop key="editar_proyecto_horario.htm">ProyectoController</prop>
+                <prop key="eliminar_proyecto_horario.htm">ProyectoController</prop>
                 
                 <prop key="crear_usuario.htm">UsuarioController</prop>
                 <prop key="editar_usuario.htm">UsuarioController</prop>

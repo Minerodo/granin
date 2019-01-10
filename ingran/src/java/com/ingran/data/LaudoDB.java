@@ -114,22 +114,7 @@ public class LaudoDB extends Conexion {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Laudo laudo = new Laudo();
-        laudo.setCosto(2.2);
-        laudo.setDescripcion("prueba");
-
-        Unidad_Medida unidad_medida = new Unidad_Medida();
-
-        unidad_medida.setId(12);
-
-        laudo.setUnidad_medida(unidad_medida);
-        laudo.setEstado("A");
-
-        agregarLaudo(laudo);
-    }
-
+    
     public Double getMontoLaudo(Integer idLaudo) {
         Double costo = 0.0d;
 
@@ -259,5 +244,4 @@ public class LaudoDB extends Conexion {
         }
         return creado;
     }
-
 }

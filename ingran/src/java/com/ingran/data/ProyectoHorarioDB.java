@@ -38,12 +38,12 @@ public class ProyectoHorarioDB extends Conexion {
                 ProyectoHorario proyecto_horario = new ProyectoHorario();
 
                 proyecto_horario.setId_horario(rs.getInt(1));
-                
+
                 CentroDeCosto cdc = new CentroDeCosto();
                 cdc.setCentro_de_costo(rs.getString(8));
                 cdc.setDescripcion(rs.getString(2));
                 proyecto_horario.setCentro_de_costo(cdc);
-                
+
                 proyecto_horario.setHora_entrada(rs.getString(3));
                 proyecto_horario.setHora_salida(rs.getString(4));
                 proyecto_horario.setTiempo_receso_horas(rs.getInt(5));
@@ -91,12 +91,12 @@ public class ProyectoHorarioDB extends Conexion {
             while (rs.next()) {
                 existe = true;
                 proyecto_horario.setId_horario(rs.getInt(1));
-                
+
                 CentroDeCosto cdc = new CentroDeCosto();
                 cdc.setCentro_de_costo(rs.getString(8));
                 cdc.setDescripcion(rs.getString(2));
                 proyecto_horario.setCentro_de_costo(cdc);
-                
+
                 proyecto_horario.setHora_entrada(rs.getString(3));
                 proyecto_horario.setHora_salida(rs.getString(4));
                 proyecto_horario.setTiempo_receso_horas(rs.getInt(5));
@@ -129,6 +129,46 @@ public class ProyectoHorarioDB extends Conexion {
                 System.err.println("ERROR: " + e);
             }
         }
+    }
+
+    public static boolean yaExiste(ProyectoHorario proyecto_horario) {
+        Conexion conexion = new Conexion();
+        conexion.abrirConexion();
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        boolean existe = false;
+        try {
+            String consultaSQL = "SELECT ph.id, cdc.DESCRIPCION, ph.hora_entrada, ph.hora_salida, ph.receso_hora, ph.receso_minutos, ph.horas_efectivas, cdc.CENTRO_COSTO FROM PROYECTO_HORARIO ph JOIN " + Conexion.getDBEXACTUS() + ".ingran.CENTRO_COSTO cdc ON ph.proyecto = cdc.CENTRO_COSTO WHERE ph.proyecto = ?;";
+
+            pst = conexion.getConexion().prepareStatement(consultaSQL);
+
+            pst.setString(1, proyecto_horario.getCentro_de_costo().getCentro_de_costo());
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                existe = true;
+            }
+        } catch (SQLException e) {
+            System.err.println("ERROR: " + e);
+        } finally {
+            try {
+                if (conexion.getConexion() != null) {
+                    conexion.cerrarConexion();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("ERROR: " + e);
+            }
+        }
+        return existe;
     }
 
     public static Boolean agregarProyectoHorario(ProyectoHorario proyecto) {
@@ -239,7 +279,7 @@ public class ProyectoHorarioDB extends Conexion {
         }
         return creado;
     }
-    
+
     public static Boolean actualizarProyectoHorarioPlanillaEncabezado(PlanillaHoraEncabezado phe) {
         boolean creado = true;
 
@@ -281,7 +321,7 @@ public class ProyectoHorarioDB extends Conexion {
         return creado;
     }
 
-    public static Boolean actualizarProyectoHorario(ProyectoHorario proyecto) {
+    public static Boolean actualizarProyectoHorario(ProyectoHorario proyecto, boolean eliminar) {
         Boolean actualizado = true;
         Conexion conexion = new Conexion();
         conexion.abrirConexion();
@@ -289,16 +329,25 @@ public class ProyectoHorarioDB extends Conexion {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String consultaSQL = "UPDATE PROYECTO_HORARIO SET hora_entrada = ?, hora_salida = ?, receso_hora = ?, receso_minutos = ?, horas_efectivas = ? WHERE id = ?;";
+            String consultaSQL = "";
+            if (eliminar) {
+                consultaSQL = "UPDATE PROYECTO_HORARIO SET proyecto = NULL WHERE id = ?;";
+            } else {
+                consultaSQL = "UPDATE PROYECTO_HORARIO SET hora_entrada = ?, hora_salida = ?, receso_hora = ?, receso_minutos = ?, horas_efectivas = ? WHERE id = ?;";
+            }
 
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
-            pst.setString(1, proyecto.getHora_entrada());
-            pst.setString(2, proyecto.getHora_salida());
-            pst.setInt(3, proyecto.getTiempo_receso_horas());
-            pst.setInt(4, proyecto.getTiempo_receso_minutos());
-            pst.setString(5, proyecto.getHoras_efectivas());
-            pst.setInt(6, proyecto.getId_horario());
+            if (eliminar) {
+                pst.setInt(1, proyecto.getId_horario());
+            } else {
+                pst.setString(1, proyecto.getHora_entrada());
+                pst.setString(2, proyecto.getHora_salida());
+                pst.setInt(3, proyecto.getTiempo_receso_horas());
+                pst.setInt(4, proyecto.getTiempo_receso_minutos());
+                pst.setString(5, proyecto.getHoras_efectivas());
+                pst.setInt(6, proyecto.getId_horario());
+            }
 
             pst.executeUpdate();
         } catch (SQLException e) {

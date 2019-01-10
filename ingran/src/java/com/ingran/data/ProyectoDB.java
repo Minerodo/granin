@@ -57,14 +57,6 @@ public class ProyectoDB extends Conexion {
             }
         }
     }
-    
-    public static void main(String[] args) {
-        ProyectoDB pys = new ProyectoDB();
-        pys.obtenerProyectos();
-        for(Proyecto py : pys.getProyectos()){
-            System.out.println(py.getDescripcion());
-        }
-    }
 
     public static Proyecto obtenerProyecto(CentroDeCosto centro_de_costo) {
         Conexion conexion = new Conexion();

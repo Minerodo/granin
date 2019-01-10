@@ -6,7 +6,7 @@ public class OrdenDeTrabajoDetalle {
     private Laudo laudo;
     private Double cantidad;
     private Double precio_unitario;
-    private Double avance;
+    private Double cantidad_avanzada;
     private Double subtotal;
     private Fase fase;
 
@@ -42,14 +42,14 @@ public class OrdenDeTrabajoDetalle {
         this.precio_unitario = precio_unitario;
     }
 
-    public Double getAvance() {
-        return avance;
+    public Double getCantidad_avanzada() {
+        return cantidad_avanzada;
     }
 
-    public void setAvance(Double anvance) {
-        this.avance = anvance;
+    public void setCantidad_avanzada(Double cantidad_avanzada) {
+        this.cantidad_avanzada = cantidad_avanzada;
     }
-
+    
     public Double getSubtotal() {
         return subtotal;
     }

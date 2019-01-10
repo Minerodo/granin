@@ -9,6 +9,7 @@
 </jsp:include>
 
 <h3 align="center"><p class="text-muted">REGISTRAR ORDEN DE TRABAJO</p></h3>
+
 <c:if test="${not empty msg}">
     <div class="alert alert-${css} alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,6 +18,7 @@
         <strong>${msg}</strong>
     </div>
 </c:if>
+
 <form:form name="frrc" id="frrc" method="POST" action="" commandName="odt">
     <div class="form-group col-lg-12">
         <form:label path="id">Id:</form:label>
@@ -146,7 +148,8 @@
                         <th>Cantidad</th>
                         <th>P.U.</th>
                         <th>SubTotal</th>
-                        <th>Avance</th>
+                        <th>Avance (%)</th>
+                        <th>Avance Actual</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -156,12 +159,13 @@
                             <td>${act.laudo.id}</td>
                             <td>${act.laudo.descripcion}</td>
                             <td>${act.fase.fase}</td>
-                            <td>${act.fase.descripcion}</td>
+                            <td>${act.fase.nombre}</td>
                             <td>${act.laudo.unidad_medida.nombre}</td>
-                            <td>${act.cantidad}</td>
-                            <td>${act.precio_unitario}</td>
-                            <td>${act.subtotal}</td>
-                            <td>${act.avance}</td>
+                            <td>${String.format("%.2f", act.cantidad)}</td>
+                            <td>$${String.format("%.2f", act.precio_unitario)}</td>
+                            <td>$${String.format("%.2f", act.subtotal)}</td>
+                            <td>${String.format("%.2f", (act.cantidad_avanzada / act.cantidad) * 100)}%</td>
+                            <td>$${String.format("%.2f", (act.cantidad_avanzada * act.precio_unitario))}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -223,7 +227,7 @@
 </script>
 
 <jsp:include page="filtro.jsp">
-    <jsp:param name="columnas" value="" />
+    <jsp:param name="columnas" value="col_0 : \"none\", col_1 : \"none\", col_5 : \"select\", col_6 : \"none\", col_7 : \"none\", col_8 : \"none\", col_9 : \"none\", col_10 : \"none\"," />
 </jsp:include>
 
 <jsp:include page="footer.jsp" />
