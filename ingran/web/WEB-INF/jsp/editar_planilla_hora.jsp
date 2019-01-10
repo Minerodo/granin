@@ -193,7 +193,7 @@
     </div>
     <c:if test="${empty urlNuevo}">
         <div class="col-xs-12">
-            <input type="submit" name="df" class="btn btn-secondary" value="Quitar Fases"/>
+            <input type="submit" name="df" class="btn btn-danger" value="Quitar Fases"/>
             <input type="submit" name="y" class="btn btn-primary" value="Aceptar">
         </div>
     </c:if>

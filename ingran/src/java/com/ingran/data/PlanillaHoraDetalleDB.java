@@ -144,7 +144,7 @@ public class PlanillaHoraDetalleDB {
         }
     }
     
-    public static String validarSiExiste(Empleado empleado, Date fecha, PlanillaHoraDetalle phd){
+    public static String validarSiExiste(Empleado empleado, String fecha, PlanillaHoraDetalle phd){
         String retorno = "";
         Conexion conexion = new Conexion();
         conexion.abrirConexion();
@@ -158,7 +158,7 @@ public class PlanillaHoraDetalleDB {
             pst = conexion.getConexion().prepareStatement(consultaSQL);
 
             pst.setString(1, empleado.getEmpleado());
-            pst.setDate(2, fecha);
+            pst.setString(2, fecha);
             pst.setString(3, phd.getHora_inicio());
             pst.setString(4, phd.getHora_inicio());
             pst.setString(5, phd.getHora_fin());

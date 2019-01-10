@@ -29,7 +29,7 @@ public class PlanillaHoraEncabezadoDB extends Conexion {
 
             pst.setInt(1, planilla_hora_encabezado.getBodeguero().getId());
             pst.setInt(2, planilla_hora_encabezado.getCatorcena().getId());
-            pst.setDate(3, planilla_hora_encabezado.getFecha());
+            pst.setString(3, planilla_hora_encabezado.getFecha());
             pst.setString(4, planilla_hora_encabezado.getCliente().getCliente());
             pst.setString(5, planilla_hora_encabezado.getCentro_de_costo().getCentro_de_costo());
             pst.setString(6, planilla_hora_encabezado.getEmpleado().getEmpleado());
@@ -113,7 +113,7 @@ public class PlanillaHoraEncabezadoDB extends Conexion {
                 catorcena.setDescripcion(rs.getString(2));
                 phe.setCatorcena(catorcena);
                 
-                phe.setFecha(rs.getDate(3));
+                phe.setFecha(rs.getString(3));
                 
                 Cliente cliente = new Cliente();
                 cliente.setNombre(rs.getString(4));

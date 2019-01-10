@@ -110,7 +110,7 @@ public class PlanillaHoraController {
             try {
                 if (!request.getParameter("fh").isEmpty()) {
                     String fh = request.getParameter("fh");
-                    planilla_hora.setFecha(Fecha.convertitTextoADate(Fecha.convertirFecha(fh)));
+                    planilla_hora.setFecha(Fecha.convertirFecha(fh));
                 }
             } catch (NullPointerException e) {
             }

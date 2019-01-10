@@ -1,6 +1,5 @@
 package com.ingran.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ public class PlanillaHoraEncabezado extends ProyectoHorario {
     private int id;
     private Usuario bodeguero;
     private Catorcena catorcena;
-    private Date fecha;
+    private String fecha;
     private Cliente cliente;
     private CentroDeCosto centro_de_costo;
     private Empleado empleado;
@@ -46,11 +45,11 @@ public class PlanillaHoraEncabezado extends ProyectoHorario {
         this.catorcena = catorcena;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
