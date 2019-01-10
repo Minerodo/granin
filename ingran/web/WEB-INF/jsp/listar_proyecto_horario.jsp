@@ -9,6 +9,7 @@
 </jsp:include>
 
 <spring:url value="/editar_proyecto_horario.htm" var="urlEditarProyectoHorario" />
+<spring:url value="/eliminar_proyecto_horario.htm" var="urlEliminarProyectoHorario" />
 
 <div class="col-md-12">
     <div id="tbl">
@@ -35,7 +36,10 @@
                             <td>${proyecto.hora_salida}</td>
                             <td>${proyecto.tiempo_receso_horas} horas ${proyecto.tiempo_receso_minutos} minutos</td>
                             <td>${proyecto.horas_efectivas}</td>
-                            <td><a href="${urlEditarProyectoHorario}?id=${proyecto.id_horario}"><span class='glyphicon glyphicon-pencil'></span></a></td>
+                            <td>
+                                <a href="${urlEditarProyectoHorario}?id=${proyecto.id_horario}"><span class='glyphicon glyphicon-pencil'></span></a>
+                                <a href="${urlEliminarProyectoHorario}?id=${proyecto.id_horario}"><span class='glyphicon glyphicon-remove'></span></a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>

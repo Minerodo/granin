@@ -2,6 +2,7 @@ package com.ingran.controller;
 
 import com.ingran.data.CentroDeCostoDB;
 import com.ingran.data.ProyectoHorarioDB;
+import com.ingran.model.CentroDeCosto;
 import com.ingran.model.ProyectoHorario;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -54,13 +55,15 @@ public class ProyectoController {
             if (!menu.equals("Administrador")) {
                 return "redirect:error.htm";
             }
-
-            if (ProyectoHorarioDB.agregarProyectoHorario(ph)) {
-                model.addAttribute("css", "success");
-                model.addAttribute("msg", "Horario de Proyecto Registrado Correctamente !!!");
-            } else{
-                model.addAttribute("css", "danger");
-                model.addAttribute("msg", "Horario de Proyecto No Registrado !!!");
+            
+            if (!ProyectoHorarioDB.yaExiste(ph)) {
+                if (ProyectoHorarioDB.agregarProyectoHorario(ph)) {
+                    model.addAttribute("css", "success");
+                    model.addAttribute("msg", "Horario de Proyecto Registrado Correctamente !!!");
+                } else {
+                    model.addAttribute("css", "danger");
+                    model.addAttribute("msg", "Horario de Proyecto No Registrado !!!");
+                }
             }
 
             model.addAttribute("proyecto", ph);
@@ -134,11 +137,11 @@ public class ProyectoController {
             if (!menu.equals("Administrador")) {
                 return "redirect:error.htm";
             }
-            
-            if (ProyectoHorarioDB.actualizarProyectoHorario(ph)) {
+
+            if (ProyectoHorarioDB.actualizarProyectoHorario(ph, false)) {
                 model.addAttribute("css", "success");
                 model.addAttribute("msg", "Horario de Proyecto Actualizado Correctamente !!!");
-            }else{
+            } else {
                 model.addAttribute("css", "success");
                 model.addAttribute("msg", "Horario de Proyecto No se Actualizo !!!");
             }
@@ -146,6 +149,31 @@ public class ProyectoController {
             model.addAttribute("proyecto", ph);
 
             return "editar_proyecto_horario";
+        } catch (NullPointerException ex) {
+            return "redirect:salir.htm";
+        }
+    }
+    
+    @RequestMapping(value = "/eliminar_proyecto_horario", method = RequestMethod.GET)
+    public String cargarFormEliminar(HttpServletRequest request, Model model) {
+        try {
+            HttpSession objSesion = request.getSession(false);
+
+            String in = (String) objSesion.getAttribute("in");
+            if (in.equals("no")) {
+                return "redirect:index.htm";
+            }
+            String menu = (String) objSesion.getAttribute("menu");
+            if (!menu.equals("Administrador")) {
+                return "redirect:error.htm";
+            }
+
+            ProyectoHorario proyecto_horario = new ProyectoHorario(Integer.parseInt(request.getParameter("id")));
+            ProyectoHorarioDB.obtenerProyectoHorario(proyecto_horario);
+                       
+            ProyectoHorarioDB.actualizarProyectoHorario(proyecto_horario, true);
+
+            return "redirect:listar_proyecto_horario.htm";
         } catch (NullPointerException ex) {
             return "redirect:salir.htm";
         }

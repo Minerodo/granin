@@ -20,7 +20,7 @@
     </c:if>
 
     <c:if test="${men.equals('Bodeguero')}">        
-        holi
+        
     </c:if>
 </div>
 
